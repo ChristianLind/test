@@ -4,6 +4,7 @@ import { DatabaseService } from 'src/database/database.service';
 import { AppModule } from '../../../app.module'
 import { profileStub } from '../stubs/profiles.stub';
 import * as request from 'supertest'
+import { CreateProfilesDTO } from 'src/profiles/dtos/create-profile.dto';
 
 describe('ProfileController', () => {
     let dbConnection: Connection;
@@ -37,6 +38,22 @@ describe('ProfileController', () => {
 
             expect(response.status).toBe(200);
             expect(response.body).toMatchObject([profileStub()]);
+        })
+    })
+
+    describe('create', () => {
+        it('should create a user', async () => {
+            const createProfilesDTO: CreateProfilesDTO = {
+                email: profileStub().email,
+                password: profileStub().password
+            }
+            const response = await request(httpServer).post('/profiles').send(createProfilesDTO)
+    
+            expect(response.status).toBe(201);
+            expect(response.body).toMatchObject(createProfilesDTO);
+    
+            const user = await dbConnection.collection('profiles').findOne({ email: createProfilesDTO.email });
+            expect(user).toMatchObject(createProfilesDTO);
         })
     })
 })

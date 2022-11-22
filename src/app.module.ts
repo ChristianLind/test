@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-//import { MongooseModule } from '@nestjs/mongoose';
 import { DatabaseModule } from './database/database.module';
 import { ProfilesModule } from './profiles/profiles.module';
 
@@ -9,8 +8,7 @@ import { ProfilesModule } from './profiles/profiles.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    ProfilesModule, 
-    //MongooseModule.forRoot('mongodb://localhost:27017/daos'),
+    ProfilesModule,
     DatabaseModule,
   ],
 })
