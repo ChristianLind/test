@@ -32,7 +32,7 @@ describe('ProfileController', () => {
 
     describe('findAll', () => {
         it('should return an array of users', async () => {
-            //making a global user to insert into the db
+            //making a global user to insert into the test db
             await dbConnection.collection('profiles').insertOne(profileStub())
             const response = await request(httpServer).get('/profiles');
 
