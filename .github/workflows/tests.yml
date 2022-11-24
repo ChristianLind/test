@@ -1,7 +1,6 @@
 name: Continous Integration
 on:
-  pull_request:
-  push:
+  [push]
 jobs:
   build-test:
     name: Build & Test
@@ -23,5 +22,5 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Execute integration tests
-      run: npm run test
+    - name: Execute e2e tests
+      run: npm run test:e2e

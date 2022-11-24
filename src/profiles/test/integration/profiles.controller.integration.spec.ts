@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing'
 import { Connection } from 'mongoose'
-import { DatabaseService } from '../../../../src/database/database.service';
+import { DatabaseService } from '../../../database/database.service';
 import { AppModule } from '../../../app.module'
 import { profileStub } from '../stubs/profiles.stub';
 import * as request from 'supertest'
