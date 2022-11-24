@@ -1,3 +1,4 @@
+name: Continous Integration
 on:
   pull_request:
   push:
@@ -6,14 +7,21 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2     # checkout the repo
-      - run: npm ci                   # install packages
-      - run: npm test                 # run tests (configured to use jest-junit reporter)
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
-        with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit 
+    - name: Install node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+    
+    - name: Install mongodb
+      uses: supercharge/mongodb.github-actions@1.8.0
+      with:
+        mongodb-version: '6'
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Execute integration tests
+      run: npm run test
